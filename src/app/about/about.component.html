@@ -1,0 +1,90 @@
+<div class="row ff-body">
+  <div class="col-12">
+
+    <h1>deVoted</h1>
+    <p><code>deVoted</code> is an Ethereum blockchain based voting app that allows for the following unique features to
+      conduct an election once an admin registers an address on the <a
+        href="https://github.com/FugueWeb/election/blob/master/contracts/Elections.sol" target="_blank">smart contract</a>.</p>
+    <ul>
+      <li>Mobile first design, vote from a <code>web3</code> browser</li>
+      <li>Create multiple elections, each with two competing proposals and a deadline</li>
+      <li>Voters can opt to delegate their vote to another approved voter</li>
+      <li>Voters can opt to change their vote one time</li>
+      <li>Inspect in realtime the current vote count of the proposals</li>
+      <li>See the voting record of a given address</li>
+      <li>Voters receive a non-fungible token for casting a vote</li>
+      <li>Vote up until the last second. A winner is determined only once the election deadline has passed.</li>
+    </ul>
+    <h2>Using the dApp</h2>
+    <p><strong><a href="https://fugueweb.com/dev/devoted" rel="nofollow" target="_blank">deVoted website!</a></strong></p>
+    <ol>
+      <li>You'll need a <code>web3</code> browser and an Ethereum wallet to vote. Fortunately, the dApp's integration
+        with
+        Block Native makes onboarding much easier. This dApp was developed with a mobile first design, so try one of the
+        following mobile apps.</li>
+    </ol>
+    <ul>
+      <li><a href="https://status.im/get/" rel="nofollow" target="_blank">Status</a></li>
+      <li><a href="https://metamask.io/download.html" rel="nofollow" target="_blank">Metamask</a></li>
+      <li><a href="https://www.coinbase.com/mobile" rel="nofollow" target="_blank">Coinbase</a></li>
+    </ul>
+    <p>If you're using a laptop/computer, use either Chrome, Brave, or Firefox with the Metamask browser extension.
+      Opera's crypto wallet also works. Note, you can still use any internet browser to check out the
+      <code>Explore</code>
+      page to read events from previous elections if you just want to look around.</p>
+    <ol start="2">
+      <li>
+        <p>This dApp is deployed to the <code>Ropsten</code> testnet. This means that you will probably need to change
+          your network to connect with the smart contract. This is different depending on what app or browser you are
+          using, please check your settings.</p>
+      </li>
+      <li>
+        <p>Finally, you will need some <code>Ropsten</code> testnet <code>ether</code> to send transactions. You can get
+          some for free at <a href="https://faucet.ropsten.be/" rel="nofollow" target="_blank">this faucet</a>.</p>
+      </li>
+      <li>
+        <p>You're ready to interact with the dApp! Press the <code>Connect Wallet</code> button and follow the prompts.
+          Provide your wallet address to the <code>admin</code> to be registered to vote.</p>
+      </li>
+      <li>
+        <p>Tip, press the <code>i</code> icon buttons next to each function to learn more about what they do.</p>
+      </li>
+    </ol>
+    <h2>Developers</h2>
+    <ul>
+      <li>
+        <p>This dApp uses smart contracts from <a href="https://github.com/FugueWeb/election" target="_blank">this project</a> using
+          Truffle, specifically <code>Elections.sol</code>. You'll need to compile and migrate/deploy the smart
+          contracts
+          to some type of blockchain (I suggest Ganache for local development) and then copy the
+          <code>elections.json</code> ABI file into the <code>contracts</code> folder of this repo.</p>
+      </li>
+      <li>
+        <p>If you want to use the Block Native integration and Etherscan API, you'll need to put in your own API keys in
+          the <code>/src/environments</code> folder.</p>
+      </li>
+      <li>
+        <p>Run <code>ng serve</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will
+          automatically reload if you change any of the source files.</p>
+      </li>
+      <li>
+        <p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io"
+            rel="nofollow" target="_blank">Karma</a>. Run <code>ng e2e</code> to execute the end-to-end tests via <a
+            href="http://www.protractortest.org/" rel="nofollow" target="_blank">Protractor</a>.</p>
+      </li>
+    </ul>
+    <h2>Resources and References</h2>
+    <ul>
+      <li><a href="https://github.com/ethereum/wiki/wiki/JavaScript-API" target="_blank">Web3</a></li>
+      <li><a href="https://www.trufflesuite.com/" rel="nofollow" target="_blank">Truffle</a></li>
+      <li><a href="https://github.com/angular/angular-cli" target="_blank">Angular CLI</a></li>
+      <li><a href="https://docs.blocknative.com/" rel="nofollow" target="_blank">Block Native</a></li>
+    </ul>
+    <h2>Changelog and Contributing</h2>
+    <p>This is an open source project. Read the <a
+        href="https://github.com/fugueweb/deVoted/blob/master/.github/CHANGELOG.md" target="_blank">change log</a> for recent updates.
+      Contributions are welcomed & encouraged! If you'd like to improve the code base, please see <a
+        href="https://github.com/fugueweb/deVoted/blob/master/.github/CONTRIBUTING.md" target="_blank">Contributing Guidelines</a>.</p>
+
+  </div><!-- end col -->
+</div><!-- end row -->

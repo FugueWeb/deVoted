@@ -1,0 +1,138 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1, 
+  "newProjectRoot": "projects",
+  "projects": {
+    "devoted": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+                "bs58check", "web3", "web3-provider-engine/subproviders/filters", 
+                "web3-provider-engine/subproviders/subscriptions", "web3-provider-engine/subproviders/hooked-wallet", 
+                "web3-provider-engine/subproviders/rpc", "web3-provider-engine", "ethereumjs-tx", 
+                "trezor-connect", "ethereumjs-util", "hdkey", "@toruslabs/torus-embed", "walletlink", 
+                "@walletconnect/web3-provider", "util", "assert", "sturdy-websocket", "eth-json-rpc-filters", 
+                "async/waterfall", "async/parallel", "u2f-api", "penpal", "randomhex", "secp256k1", "xhr", 
+                "buffer", "async/map", "@walletconnect/qrcode-modal", "eth-block-tracker", "eth-sig-util", 
+                "rlp", "@babel/runtime/regenerator", "ethereum-private-key-to-address", "eth-json-rpc-errors", "async/eachSeries", 
+                "@babel/runtime/helpers/inherits", "@babel/runtime/helpers/possibleConstructorReturn", "@babel/runtime/helpers/toConsumableArray", 
+                "to-hex", "ethereum-public-key-to-address", "uuidv4", "crypto", "bn.js", "safe-buffer", "ethjs-util", 
+                "web3-utils", "ethereum-private-key-to-public-key", "@walletconnect/utils", "@walletconnect/http-connection", 
+                "@walletconnect/client"
+             ],
+            "outputPath": "dist/devoted",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "6mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "devoted:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "devoted:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "devoted:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "devoted:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "devoted:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "devoted"
+}

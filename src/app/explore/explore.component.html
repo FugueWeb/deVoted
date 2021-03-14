@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-6">
+    <form [formGroup]="eventForm">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Select Event</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field>
+            <mat-label>Events</mat-label>
+            <mat-select #eventSelected formControlName="eventName">
+              <mat-option *ngFor="let e of events; index as i;" value={{i}}>{{e.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-card-actions>
+            <button mat-raised-button class="ff-red-button" [disabled]="!eventForm.valid"
+              (click)="onEventSelected(eventSelected.value)">Select</button>
+          </mat-card-actions>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div><!-- end col-->
+  <div class="col-6">
+    <div *ngFor="let e of eventData; index as i;">
+      <ul *ngIf="eventData">
+        <li><a class="ff-link" href="{{e.tx}}" target="_blank">Transaction</a></li>
+        <li>{{e.timestamp}}</li>
+        <li *ngIf="e.date">Election deadline: {{e.date}}</li>
+        <li *ngIf="e.electionID">Election ID: {{e.electionID}}</li>
+        <li *ngIf="e.registeredAddr">Address: <a class="ff-link" href="https://ropsten.etherscan.io/address/{{e.registeredAddr}}" target="_blank">{{e.registeredAddr}}</a></li>
+        <li *ngIf="e.voter">Voter: {{e.voter}}</li>
+        <li *ngIf="e.admin">Admin: {{e.admin}}</li>
+        <li *ngIf="e.tokenID">NFT ID: {{e.tokenID}}</li>
+        <li *ngIf="e.NFTissuedTo">Issued to: {{e.NFTissuedTo}}</li>
+        <li *ngIf="e.addrVote">Voter: {{e.addrVote}}</li>
+        <li *ngIf="e.vote">Proposal: {{e.vote}}</li>
+        <li *ngIf="e.addrChangedVote">Voter: {{e.addrChangedVote}}</li>
+        <li *ngIf="e.voteChanged">Proposal: {{e.voteChanged}}</li>
+        <li *ngIf="e.voterRegisterAddr">Voter: {{e.voterRegisterAddr}}</li>
+        <li *ngIf="e.voterRegisterElection">Election ID: {{e.voterRegisterElection}}</li>
+      </ul>
+      <hr>
+    </div>
+  </div><!-- end col-->
+</div>
