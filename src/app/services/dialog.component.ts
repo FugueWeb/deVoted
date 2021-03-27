@@ -10,13 +10,13 @@ export interface DialogData {
 @Component({
   selector: 'dialog-overview-example-dialog',
   template: `
-  <h1 mat-dialog-title>{{data.id}}</h1>
-  <p><em>{{data.call}}</em></p>
+  <h3 mat-dialog-title>{{data.id}}</h3>
   <div mat-dialog-content>
     <p>{{data.desc}}</p>
+    <p><em>{{data.call}}</em></p>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Ok</button>
+    <button mat-raised-button (click)="onNoClick()">Ok</button>
   </div>
   `
 })

@@ -3,3 +3,11 @@
   height: auto;
   max-width: 1000px;
 }
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+a {
+  color: #b31121;
+}

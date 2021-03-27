@@ -1,12 +1,10 @@
 <div class="row ff-body">
   <div class="col-12">
 
-    <h1>deVoted</h1>
-    <p><code>deVoted</code> is an Ethereum blockchain based voting app that allows for the following unique features to
-      conduct an election once an admin registers an address on the <a
-        href="https://github.com/FugueWeb/election/blob/master/contracts/Elections.sol" target="_blank">smart contract</a>.</p>
+    <h1>About deVoted</h1>
+    <p><code>deVoted</code> is an Ethereum blockchain-based decentralized app (dApp) that allows you to vote in elections and audit their results using <a href="https://github.com/FugueWeb/election/blob/master/contracts/Elections.sol" target="_blank">smart contracts</a>. Some of the unique features to this type of electoral system include:</p>
     <ul>
-      <li>Mobile first design, vote from a <code>web3</code> browser</li>
+      <li>Mobile first design, vote from a <code>web3</code> enabled browser</li>
       <li>Create multiple elections, each with two competing proposals and a deadline</li>
       <li>Voters can opt to delegate their vote to another approved voter</li>
       <li>Voters can opt to change their vote one time</li>
@@ -16,61 +14,57 @@
       <li>Vote up until the last second. A winner is determined only once the election deadline has passed.</li>
     </ul>
     <h2>Using the dApp</h2>
-    <p><strong><a href="https://fugueweb.com/dev/devoted" rel="nofollow" target="_blank">deVoted website!</a></strong></p>
     <ol>
-      <li>You'll need a <code>web3</code> browser and an Ethereum wallet to vote. Fortunately, the dApp's integration
-        with
-        Block Native makes onboarding much easier. This dApp was developed with a mobile first design, so try one of the
-        following mobile apps.</li>
+      <li>
+        <p>You'll need a <code>web3</code> browser and an Ethereum wallet to vote. Fortunately, the dApp's integration with Block Native makes onboarding much easier. This dApp was developed with a mobile first design, so try one of the following mobile apps.</p>
+      </li>
     </ol>
     <ul>
       <li><a href="https://status.im/get/" rel="nofollow" target="_blank">Status</a></li>
       <li><a href="https://metamask.io/download.html" rel="nofollow" target="_blank">Metamask</a></li>
       <li><a href="https://www.coinbase.com/mobile" rel="nofollow" target="_blank">Coinbase</a></li>
     </ul>
-    <p>If you're using a laptop/computer, use either Chrome, Brave, or Firefox with the Metamask browser extension.
-      Opera's crypto wallet also works. Note, you can still use any internet browser to check out the
-      <code>Explore</code>
-      page to read events from previous elections if you just want to look around.</p>
+    <p>If you're using a laptop/computer, use either Chrome, Brave, or Firefox with the Metamask browser extension. Opera's crypto wallet also works.</p>
     <ol start="2">
       <li>
-        <p>This dApp is deployed to the <code>Ropsten</code> testnet. This means that you will probably need to change
-          your network to connect with the smart contract. This is different depending on what app or browser you are
-          using, please check your settings.</p>
+        <p>This dApp is deployed to the <code>Ropsten</code> testnet. This means that you will probably need to change your network from <code>MainNet</code> in order to connect with the smart contract. This is different depending on what app or browser you are using, please check your settings.</p>
       </li>
       <li>
-        <p>Finally, you will need some <code>Ropsten</code> testnet <code>ether</code> to send transactions. You can get
-          some for free at <a href="https://faucet.ropsten.be/" rel="nofollow" target="_blank">this faucet</a>.</p>
+        <p>Finally, you will need some <code>Ropsten</code> testnet <code>ether</code> to send transactions. You can get some for free at <a href="https://faucet.ropsten.be/" rel="nofollow" target="_blank">this faucet</a>.</p>
       </li>
       <li>
-        <p>You're ready to interact with the dApp! Press the <code>Connect Wallet</code> button and follow the prompts.
-          Provide your wallet address to the <code>admin</code> to be registered to vote.</p>
+        <p>You're ready to interact with the dApp! On the landing page press the <code>Connect Wallet</code> button and follow the prompts. Use the <code>New Voter Request</code> function, which alerts the admin of your wallet address so you can registered to vote. Once you've been registered (authorizing you the right to participate), you can then self-register for each individual election in which you wish to cast/delegate/change a vote.</p>
       </li>
       <li>
-        <p>Tip, press the <code>i</code> icon buttons next to each function to learn more about what they do.</p>
+        <p>Tip, press the <mat-icon>info</mat-icon> icon buttons next to each function to learn more about what they do. Some functions read data from the blockchain, some make state changes (such as casting a vote), and some may only be called by the admin.</p>
       </li>
     </ol>
+    <h2>Auditing</h2>
+        <p>No special browser or extension is required to audit the results of an election. In the <code>Explore</code> tab, you are able to see the event logs from all state-changing transactions on the smart contract. This data is pulled using <a href="https://etherscan.io/apis" target="_blank">Etherscan's API</a> and is effectively an audit trail that provides integrity and non-repudiation of someone's voting record as well as the results of an election. Events include:</p>
+    <ul>
+        <li>Elections: Shows the deadline and ID of all elections</li>
+        <li>New Voter Request: Alerts the admin of an address that requests to be assigned the <code>VOTER</code> role</li>
+        <li>Role Granted: Show when an address has been granted either the <code>VOTER</code> or <code>ADMIN</code> role, representing that they've been registered as a participant on the dapp. Note, this just affords people the right to vote, but they still have to individually register for each election they wish to vote in.</li>
+        <li>Voter Registered: Shows when a registered voter registers for a specific election</li>
+        <li>Vote Cast: Shows when a voter cast their vote and for which proposal they voted in a given election</li>
+        <li>NFT Issued: Voters receive a <code>deVoted</code> non-fungible token when they vote. This event shows the ID of the NFT and to whom it was issued.</li>
+        <li>Vote Changed: Shows when a registered voter changes their vote for a given election</li>
+        <li>Vote Delegated: Shows to which address a registered voter delegates their vote for a given election</li>
+    </ul>
     <h2>Developers</h2>
     <ul>
       <li>
-        <p>This dApp uses smart contracts from <a href="https://github.com/FugueWeb/election" target="_blank">this project</a> using
-          Truffle, specifically <code>Elections.sol</code>. You'll need to compile and migrate/deploy the smart
-          contracts
-          to some type of blockchain (I suggest Ganache for local development) and then copy the
-          <code>elections.json</code> ABI file into the <code>contracts</code> folder of this repo.</p>
+        <p>This dApp uses smart contracts from <a href="https://github.com/FugueWeb/election" target="_blank">this project</a> using Truffle, specifically <code>Elections.sol</code>. You'll need to compile and migrate/deploy the smart
+        contracts to some type of blockchain (I suggest Ganache for local development) and then copy the <code>elections.json</code> ABI file into the <code>assets</code> folder of this repo.</p>
       </li>
       <li>
-        <p>If you want to use the Block Native integration and Etherscan API, you'll need to put in your own API keys in
-          the <code>/src/environments</code> folder.</p>
+        <p>If you want to use the Block Native integration and Etherscan API, you'll need to put in your own API keys in the <code>/src/environments</code> folder.</p>
       </li>
       <li>
-        <p>Run <code>ng serve</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will
-          automatically reload if you change any of the source files.</p>
+        <p>Run <code>ng serve</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will automatically reload if you change any of the source files.</p>
       </li>
       <li>
-        <p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io"
-            rel="nofollow" target="_blank">Karma</a>. Run <code>ng e2e</code> to execute the end-to-end tests via <a
-            href="http://www.protractortest.org/" rel="nofollow" target="_blank">Protractor</a>.</p>
+        <p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io" rel="nofollow" target="_blank">Karma</a>. Run <code>ng e2e</code> to execute the end-to-end tests via <a href="http://www.protractortest.org/" rel="nofollow" target="_blank">Protractor</a>.</p>
       </li>
     </ul>
     <h2>Resources and References</h2>
@@ -81,10 +75,6 @@
       <li><a href="https://docs.blocknative.com/" rel="nofollow" target="_blank">Block Native</a></li>
     </ul>
     <h2>Changelog and Contributing</h2>
-    <p>This is an open source project. Read the <a
-        href="https://github.com/fugueweb/deVoted/blob/master/.github/CHANGELOG.md" target="_blank">change log</a> for recent updates.
-      Contributions are welcomed & encouraged! If you'd like to improve the code base, please see <a
-        href="https://github.com/fugueweb/deVoted/blob/master/.github/CONTRIBUTING.md" target="_blank">Contributing Guidelines</a>.</p>
-
+    <p>This is an open source project. Read the <a href="https://github.com/fugueweb/deVoted/blob/master/.github/CHANGELOG.md" target="_blank">change log</a> for recent updates. Contributions are welcomed & encouraged! If you'd like to improve the code base, please see <a href="https://github.com/fugueweb/deVoted/blob/master/.github/CONTRIBUTING.md" target="_blank">Contributing Guidelines</a>.</p>
   </div><!-- end col -->
 </div><!-- end row -->

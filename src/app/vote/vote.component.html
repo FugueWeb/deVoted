@@ -1,4 +1,5 @@
-<button *ngIf="!walletState" mat-raised-button class="ff-red-button" (click)="connectWallet(false)">Connect Wallet</button>
+<button *ngIf="!walletState" mat-raised-button class="ff-red-button" (click)="connectWallet(false)">Connect
+  Wallet</button>
 <button *ngIf="walletState" mat-raised-button class="ff-red-button" (click)="connectWallet(true)">Change Wallet</button>
 
 <br>
@@ -10,17 +11,30 @@
         <li>Address: <a class="ff-link" href="https://ropsten.etherscan.io/address/{{walletState.address}}"
             target="_blank">{{walletState.address}}</a></li>
         <li>Network: {{networkName}}</li>
-        <li>Balance: {{walletState.balance}} ETH</li>
+        <li>Balance: {{balanceETH}} ETH</li>
         <li>Wallet: {{walletState.wallet.name}}</li>
         <li>Mobile: {{walletState.mobileDevice}}</li>
         <li>Contract: <a class="ff-link" href="https://ropsten.etherscan.io/address/{{elecContract.address}}"
             target="_blank">{{elecContract.address}}</a></li>
       </ul>
     </div>
-    <div class="col-6" *ngIf="tx">
-      <h3>Transactions</h3>
-      <p><a class="ff-link" href="https://ropsten.etherscan.io/tx/{{tx.hash}}"
-          target="_blank">View on Etherscan</a></p>
+    <div class="col-6">
+      <mat-card class="canCall">
+        <mat-card-header>
+          <button mat-card-avatar mat-icon-button (click)="openDialog('newVoterRequest')">
+            <mat-icon class="iconMargin">info</mat-icon>
+          </button>
+          <mat-card-title>New Voter Request</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <button mat-raised-button id="newVoterRequest" (click)="newVoterRequest(walletState.address)">Request</button>
+        </mat-card-content>
+      </mat-card>
+      <div *ngIf="tx">
+        <h3>Transactions</h3>
+        <p><a class="ff-link" href="https://ropsten.etherscan.io/tx/{{tx.hash}}" target="_blank">View on Etherscan</a>
+        </p>
+      </div>
     </div>
   </div><!-- end row -->
 
@@ -44,8 +58,10 @@
     </div>
     <div class="col-6">
       <ul *ngIf="election.show">
-        <li>Proposal 0: <span class="ff-link">{{election.proposal0}}</span> | Vote count: <span class="ff-link">{{election.proposal0Count}}</span></li>
-        <li>Proposal 1: <span class="ff-link">{{election.proposal1}}</span> | Vote count: <span class="ff-link">{{election.proposal1Count}}</span></li>
+        <li>Proposal 0: <span class="ff-link">{{election.proposal0}}</span> | Vote count: <span
+            class="ff-link">{{election.proposal0Count}}</span></li>
+        <li>Proposal 1: <span class="ff-link">{{election.proposal1}}</span> | Vote count: <span
+            class="ff-link">{{election.proposal1Count}}</span></li>
         <li>Deadline: <span>{{election.getDate}}</span></li>
       </ul>
     </div>
@@ -59,6 +75,7 @@
             <mat-icon class="iconMargin">info</mat-icon>
           </button>
           <mat-card-title>Get Voter Information</mat-card-title>
+          <mat-card-subtitle>My address is {{walletState.address}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <mat-form-field>
@@ -79,7 +96,7 @@
         <li>Registered: {{voter.registered}}</li>
         <li>Changed Vote: {{voter.hasChangedVote}}</li>
         <li>Delegate: {{voter.delegate}}</li>
-        <li>Vote: <span *ngIf="voter.voted">{{voter.vote}}</span></li>
+        <li>Vote: <span *ngIf="voter.voted && voter.delegate == '0x0000000000000000000000000000000000000000'">{{voter.vote}}</span></li>
       </ul>
     </div>
   </div> <!-- end row -->
@@ -104,7 +121,8 @@
               <mat-error *ngIf="newElectionForm.invalid">{{newElectionErrorMsg('prop0')}}</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <input matInput type="text" id="prop1" placeholder="Proposal One" (change)="setProp1($event)" formControlName="prop1">
+              <input matInput type="text" id="prop1" placeholder="Proposal One" (change)="setProp1($event)"
+                formControlName="prop1">
               <mat-error *ngIf="newElectionForm.invalid">{{newElectionErrorMsg('prop1')}}</mat-error>
             </mat-form-field>
             <mat-form-field>
@@ -154,8 +172,8 @@
           </mat-card-header>
           <mat-card-content>
             <mat-form-field>
-              <input matInput type="number" id="registerElecID" placeholder="Election ID" (change)="setRegisterElecID($event)"
-                formControlName="eid">
+              <input matInput type="number" id="registerElecID" placeholder="Election ID"
+                (change)="setRegisterElecID($event)" formControlName="eid">
               <mat-error *ngIf="registerForElectionForm.invalid">{{registerForElectionErrorMsg('eid')}}</mat-error>
             </mat-form-field>
             <button mat-raised-button id="registerForElection" (click)="registerForElection()"
@@ -180,8 +198,8 @@
               <mat-error *ngIf="voteForm.invalid">{{voteErrorMsg('prop')}}</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <input matInput type="number" id="voteElectionID" placeholder="Election ID" (change)="setVoteElectionID($event)"
-                formControlName="eid">
+              <input matInput type="number" id="voteElectionID" placeholder="Election ID"
+                (change)="setVoteElectionID($event)" formControlName="eid">
               <mat-error *ngIf="voteForm.invalid">{{voteErrorMsg('eid')}}</mat-error>
             </mat-form-field>
             <button mat-raised-button id="voteButton" (click)="vote()" [disabled]="!voteForm.valid">Vote</button>
@@ -208,8 +226,8 @@
               <mat-error *ngIf="delegateForm.invalid">{{delegateErrorMsg('delegateAddr')}}</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <input matInput type="number" id="delegateElectionID" placeholder="Election ID" (change)="setDelegateElectionID($event)"
-                formControlName="delegateEID">
+              <input matInput type="number" id="delegateElectionID" placeholder="Election ID"
+                (change)="setDelegateElectionID($event)" formControlName="delegateEID">
               <mat-error *ngIf="delegateForm.invalid">{{delegateErrorMsg('delegateEID')}}</mat-error>
             </mat-form-field>
             <button mat-raised-button id="delegateButton" (click)="delegate()"
@@ -229,8 +247,8 @@
           </mat-card-header>
           <mat-card-content>
             <mat-form-field>
-              <input matInput type="number" id="changeVoteProp" placeholder="Proposal" (change)="setChangeVoteProposal($event)"
-                formControlName="changeVoteProp">
+              <input matInput type="number" id="changeVoteProp" placeholder="Proposal"
+                (change)="setChangeVoteProposal($event)" formControlName="changeVoteProp">
               <mat-error *ngIf="changeVoteForm.invalid">{{changeVoteErrorMsg('changeVoteProp')}}</mat-error>
             </mat-form-field>
             <mat-form-field>
@@ -255,7 +273,8 @@
           </button>
           <mat-card-title>Get Election Winner</mat-card-title>
           <mat-card-subtitle><em>Ensure deadline has expired</em></mat-card-subtitle>
-          <mat-card-subtitle *ngIf="election.blockTimestamp"><em>Latest block timestamp: {{election.blockTimestamp}}</em></mat-card-subtitle>
+          <mat-card-subtitle *ngIf="election.blockTimestamp"><em>Latest block timestamp:
+              {{election.blockTimestamp}}</em></mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <mat-form-field>
@@ -266,9 +285,13 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div class="col-6" *ngIf="proposal.winner">        
-      <img id="winning-gif" src="https://fugueweb.com/assets/images/homer-dance.gif" alt="Homer victory dance" />
-      <h2>The winner is <span class="ff-link">{{proposal.winner}}!</span></h2>
+    <div class="col-6" *ngIf="proposal.winner">
+      <img *ngIf="proposal.winner !== 'TIE'" id="winning-gif" src="https://fugueweb.com/assets/images/homer-dance.gif"
+        alt="Homer victory dance" />
+      <img *ngIf="proposal.winner == 'TIE'" id="tie-gif" src="https://fugueweb.com/assets/images/homer-think.gif"
+        alt="Homer thinking" />
+      <h2><span *ngIf="proposal.winner !== 'TIE'">The winner is </span><span class="ff-link">{{proposal.winner}}!</span>
+      </h2>
     </div>
   </div> <!-- end row -->
 

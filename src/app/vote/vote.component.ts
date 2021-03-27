@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 // import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Web3Service } from '../services/web3.service';
 import { WalletState } from '../models/walletState';
 import { Transaction } from '../models/tx';
@@ -15,7 +16,7 @@ import { DialogComponent } from '../services/dialog.component';
 
 declare let require: any;
 const dialog_data = require('./info.json');
-const election_artifacts = require('../../../contracts/elections.json');
+const election_artifacts = require('../../assets/elections.json');
 
 @Component({
   selector: 'app-vote',
@@ -31,6 +32,7 @@ export class VoteComponent implements OnInit {
   public walletState: WalletState;
   public tx: Transaction;
   public networkName: String;
+  public balanceETH: String;
   public valueInWei: number;
 
   elecContract: Contract = new Contract();
@@ -52,7 +54,8 @@ export class VoteComponent implements OnInit {
     // private route: ActivatedRoute,
     private web3Service: Web3Service,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private matSnackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +66,7 @@ export class VoteComponent implements OnInit {
       });
     this.web3Service.currentWalletState$.subscribe(state => {
       this.walletState = state;
-      this.walletState.balance = this.web3Service.convertWeiToETH(this.walletState.balance);
+      this.balanceETH = this.web3Service.convertWeiToETH(this.walletState.balance);
       console.log(state);
       this.networkName = this.getNetworkName(this.walletState.network);
     });
@@ -224,6 +227,18 @@ export class VoteComponent implements OnInit {
 
   /************* CONTRACT FUNCTIONS *************/
 
+  async newVoterRequest(addr: string) {
+    console.log('New voter request at address ' + addr);
+
+    try {
+      const deployedElection = await this.ELECTION.deployed();
+      this.web3Service.newVoterRequest(deployedElection, addr);
+    } catch (e) {
+      console.log(e);
+      this.setStatus('Error: Address might already be registered; see log.');
+    }
+  }
+
   async newElection() {
     console.log('Creating new election');
     try {
@@ -233,7 +248,7 @@ export class VoteComponent implements OnInit {
       
     } catch (e) {
       console.log(e);
-      //this.setStatus('Error getting proposal; see log.');
+      this.setStatus('Error: Admin only; see log.');
     }
   }
 
@@ -252,7 +267,7 @@ export class VoteComponent implements OnInit {
       this.election.getDate = this.timeConverter(Number(result[4]));
     } catch (e) {
       console.log(e);
-      //this.setStatus('Error getting proposal; see log.');
+      this.setStatus('Error: Check if electionID is valid; see log.');
     }
   }
 
@@ -273,7 +288,7 @@ export class VoteComponent implements OnInit {
       console.log(this.voter);
     } catch (e) {
       console.log(e);
-      //this.setStatus('Error getting proposal; see log.');
+      this.setStatus('Error; see log.');
     }
   }
 
@@ -286,7 +301,7 @@ export class VoteComponent implements OnInit {
         
       } catch (e) {
         console.log(e);
-        //this.setStatus('Error getting proposal; see log.');
+        this.setStatus('Error: Admin only; see log.');
       }
   }
 
@@ -299,7 +314,7 @@ export class VoteComponent implements OnInit {
         
       } catch (e) {
         console.log(e);
-        //this.setStatus('Error getting proposal; see log.');
+        this.setStatus('Error: Address might not be registered to vote; see log.');
       }
   }
 
@@ -312,7 +327,7 @@ export class VoteComponent implements OnInit {
         
       } catch (e) {
         console.log(e);
-        //this.setStatus('Error getting proposal; see log.');
+        this.setStatus('Error: Check voter information for this electionID; see log.');
       }
   }
 
@@ -325,7 +340,7 @@ export class VoteComponent implements OnInit {
         
       } catch (e) {
         console.log(e);
-        //this.setStatus('Error getting proposal; see log.');
+        this.setStatus('Error: Check voter information for this electionID; see log.');
       }
   }
 
@@ -338,7 +353,7 @@ export class VoteComponent implements OnInit {
         
       } catch (e) {
         console.log(e);
-        //this.setStatus('Error getting proposal; see log.');
+        this.setStatus('Error: Check voter information for this electionID; see log');
       }
   }
 
@@ -354,7 +369,7 @@ export class VoteComponent implements OnInit {
       this.proposal.winner = winner;
     } catch (e) {
       console.log(e);
-      //this.setStatus('Error getting proposal; see log.');
+      this.setStatus('Error: Check electionID information; see log.');
     }
   }
 
@@ -367,7 +382,7 @@ export class VoteComponent implements OnInit {
         
       } catch (e) {
         console.log(e);
-        //this.setStatus('Error getting proposal; see log.');
+        this.setStatus('Error: Only admin; see log.');
       }
   }
 
@@ -425,6 +440,12 @@ export class VoteComponent implements OnInit {
         desc: choice.desc,
         call: choice.call
       }
+    });
+  }
+
+  setStatus(status: string) {
+    this.matSnackBar.open(status, null, {
+      duration: 3000
     });
   }
 

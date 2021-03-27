@@ -1,5 +1,10 @@
 [
     {
+        "id": "newVoterRequest",
+        "desc": "Request for the admin to register address as an eligible voter. This is a helper function that emits an event to alert the admin of the requesting voter's address.",
+        "call": "Public"
+    },
+    {
         "id": "getElectionInfo",
         "desc": "Returns names of and current vote counts for each proposal given an election ID. Use this research what to vote on.",
         "call": "Read Only"

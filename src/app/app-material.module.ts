@@ -8,6 +8,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 //import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import {MatRippleModule} from '@angular/material/core';
 // import {MatTableModule} from '@angular/material/table';
@@ -30,6 +31,7 @@ import {MatSortModule} from '@angular/material/sort';
     MatListModule,
     MatButtonModule,
     MatDialogModule,
+    MatSnackBarModule,
     //MatButtonToggleModule,
     MatIconModule,
     //MatRippleModule,
@@ -49,6 +51,8 @@ import {MatSortModule} from '@angular/material/sort';
     MatToolbarModule,
     MatListModule,
     MatButtonModule,
+    MatDialogModule,
+    MatSnackBarModule,
     //MatButtonToggleModule,
     MatIconModule,
     //MatRippleModule,

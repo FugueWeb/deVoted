@@ -6,4 +6,5 @@ export class Event {
 	contract: string;
     admin: string;
     voter: string;
+    desc: string;
 }

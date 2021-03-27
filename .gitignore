@@ -7,6 +7,7 @@
 # Only exists if Bazel was run
 /bazel-out
 /contracts/elections.json
+/src/assets/elections.json
 
 # dependencies
 /node_modules

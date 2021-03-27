@@ -23,8 +23,8 @@ mat-slider {
   width: 300px;
 }
 
-#winning-gif {
+#winning-gif, #tie-gif {
     float:left;
-    max-width: 175px;
+    max-width: 165px;
     margin: 2%
 }

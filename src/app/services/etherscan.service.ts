@@ -33,6 +33,19 @@ export class EtherscanService {
     return of(EVENTSDATA);
   }
 
+  processNewVoterRequest(data): Array < EventResponse > {
+    console.log(data);
+    var logArray: EventResponse[] = [];
+    for (var i = 0; i < data.result.length; i++) {
+      var obj: EventResponse = new EventResponse();
+      obj["tx"] = this.txUrl + data.result[i].transactionHash;
+      obj["newVoterRequest"] = '0x' + data.result[i].topics[1].substring(26, 66);
+      obj["timestamp"] = this.timeConverter(this.web3.utils.toDecimal(data.result[i].timeStamp));
+      logArray.push(obj);
+    }
+    return logArray;
+  }
+
   processElections(data): Array < EventResponse > {
     console.log(data);
     var logArray: EventResponse[] = [];
@@ -55,9 +68,10 @@ export class EtherscanService {
       obj["tx"] = this.txUrl + data.result[i].transactionHash;
       obj["registeredAddr"] = '0x' + data.result[i].topics[2].substring(26, 66);
       obj["role"] = data.result[i].topics[1];
-      if(obj["role"] == EVENTSDATA[1].voter){
+      console.log(data.result[i].topics[1]);
+      if(obj["role"] == EVENTSDATA[2].voter){
           obj["voter"] = true;
-      } else if (obj["role"] == EVENTSDATA[1].admin) {
+      } else if (obj["role"] == EVENTSDATA[2].admin) {
           obj["admin"] = true;
       }
       obj["timestamp"] = this.timeConverter(this.web3.utils.toDecimal(data.result[i].timeStamp));
@@ -88,6 +102,7 @@ export class EtherscanService {
       obj["tx"] = this.txUrl + data.result[i].transactionHash;
       obj["timestamp"] = this.timeConverter(this.web3.utils.toDecimal(data.result[i].timeStamp));
       obj["vote"] = data.result[i].data.substring(65, 66);
+      obj["voteElectionID"] = data.result[i].data.substring(127, 130);
       obj["addrVote"] = '0x' + data.result[i].topics[1].substring(26, 66);
       logArray.push(obj);
     }
@@ -102,7 +117,23 @@ export class EtherscanService {
       obj["tx"] = this.txUrl + data.result[i].transactionHash;
       obj["timestamp"] = this.timeConverter(this.web3.utils.toDecimal(data.result[i].timeStamp));
       obj["voteChanged"] = data.result[i].data.substring(65, 66);
+      obj["changeVoteElectionID"] = data.result[i].data.substring(127, 130);
       obj["addrChangedVote"] = '0x' + data.result[i].topics[1].substring(26, 66);
+      logArray.push(obj);
+    }
+    return logArray;
+  }
+
+  processDelegateVote(data): Array < EventResponse > {
+    console.log(data);
+    var logArray: EventResponse[] = [];
+    for (var i = 0; i < data.result.length; i++) {
+      var obj: EventResponse = new EventResponse();
+      obj["tx"] = this.txUrl + data.result[i].transactionHash;
+      obj["timestamp"] = this.timeConverter(this.web3.utils.toDecimal(data.result[i].timeStamp));
+      obj["delegateElectionID"] = data.result[i].data.substring(63, 66);
+      obj["delegateToAddr"] = '0x' + data.result[i].topics[1].substring(26, 66);
+      obj["delegateFromAddr"] = '0x' + data.result[i].topics[2].substring(26, 66);
       logArray.push(obj);
     }
     return logArray;

@@ -14,6 +14,12 @@ export class EventResponse {
     NFTissuedTo: string;
     addrVote: string;
     vote: number;
+    voteElectionID: number;
+    newVoterRequest: string;
     addrChangedVote: string;
+    changeVoteElectionID: number;
+    delegateToAddr: string;
+    delegateFromAddr: string;
+    delegateElectionID: number;
     voteChanged: number;
 }

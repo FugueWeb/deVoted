@@ -14,6 +14,7 @@ export class ExploreComponent implements OnInit {
   events: Event[];
   eventData: EventResponse[];
   eventForm: FormGroup;
+  eventDesc: String;
 
   constructor(private ess: EtherscanService, private fb: FormBuilder) {}
 
@@ -30,12 +31,20 @@ export class ExploreComponent implements OnInit {
     });
   }
 
+  updateDesc(index) {
+    this.eventDesc = this.events[index].desc;
+  }
+
   onEventSelected(index): void {
     let data: Array < any > = [this.events[index].fromBlock, this.events[index].address, this.events[index].topic];
     this.ess.getEventData(data).subscribe(events => {
       switch (this.events[index].name) {
         case "Elections":
           this.eventData = this.ess.processElections(events);
+          console.log(this.eventData);
+          break;
+        case "New Voter Request":
+          this.eventData = this.ess.processNewVoterRequest(events);
           console.log(this.eventData);
           break;
         case "Role Granted":
@@ -52,6 +61,10 @@ export class ExploreComponent implements OnInit {
           break;
         case "Vote Changed":
           this.eventData = this.ess.processChangeVote(events);
+          console.log(this.eventData);
+          break;
+        case "Vote Delegated":
+          this.eventData = this.ess.processDelegateVote(events);
           console.log(this.eventData);
           break;
         case "NFT Issued":

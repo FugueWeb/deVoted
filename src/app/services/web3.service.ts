@@ -23,7 +23,7 @@ export class Web3Service {
   private onboard: any;
   public currentWalletState$ = new Subject<WalletState>();
   public tx$ = new Subject<any>();
-  private networkID: number = 3; //change to 1337 for Ganache
+  private networkID: number = 3; //3 = Ropsten; 1337 = Ganache
 
   //Block Native ONBOARD options
   initializationOptions = {
@@ -97,6 +97,27 @@ export class Web3Service {
         this.log('No wallet detected');
         return false;
     }
+  }
+
+  public newVoterRequest(instance: any, addr) {
+      let self = this;
+      instance.requestAccess.sendTransaction( {from:addr}).on('transactionHash', function(hash){  
+        let notifyInstance = Notify({
+            dappId: environment.BLOCK_NATIVE_KEY,
+            networkId: self.networkID
+        });
+        const { emitter } = notifyInstance.hash(hash);
+        emitter.on('all', function(tx) {
+            self.tx$.next(tx);
+            setTimeout(() => {
+                self.currentWalletState$.next(self.onboard.getState())}, 
+                8000
+            );
+            return {
+                onclick: () => window.open(`${networkIdToUrl[self.initializationOptions.networkId]}/${tx.hash}`)
+            }          
+        });
+      })
   }
 
   public newElection(instance: any, prop1, prop2, deadline, from) {
