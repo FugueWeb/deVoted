@@ -33,7 +33,7 @@ export class Web3Service {
     subscriptions: {
         wallet: wallet => {
             this.web3 = new Web3(wallet.provider)
-            window.localStorage.setItem('ff-dapp-wallet', wallet.name)
+            window.localStorage.setItem('fw-dapp-wallet', wallet.name)
         },
         balance: () => {}
     },
@@ -71,13 +71,13 @@ export class Web3Service {
 
   public async blockNativeOnboard(change: boolean): Promise<boolean> {
     if(change){
-        window.localStorage.removeItem('ff-dapp-wallet');
+        window.localStorage.removeItem('fw-dapp-wallet');
     }
     if (this.onboard == undefined) {
         this.onboard = Onboard(this.initializationOptions);
     }
     let walletSelected: boolean, readyToTransact: boolean;
-    const previouslySelectedWallet = window.localStorage.getItem('ff-dapp-wallet')
+    const previouslySelectedWallet = window.localStorage.getItem('fw-dapp-wallet')
     try {
         if (previouslySelectedWallet != null) {
             walletSelected = await this.onboard.walletSelect(previouslySelectedWallet);
