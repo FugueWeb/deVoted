@@ -288,6 +288,7 @@ export class Web3Service {
   }
 
   public convertWeiToETH(amount) {
+      console.log(amount);
     return this.web3.utils.fromWei(amount, 'ether');
   }
 

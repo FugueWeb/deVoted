@@ -1,5 +1,10 @@
 # Change Log
 
+## 20220409
+
+* Updated to Angular 13 `ng update --all`
+* Updated Blocknative
+
 ## 20210327
 
 * Version 1.1.0

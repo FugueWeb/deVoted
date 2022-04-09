@@ -19,7 +19,7 @@
 
 * [Status](https://status.im/get/)
 * [Metamask](https://metamask.io/download.html)
-* [Coinbase](https://www.coinbase.com/mobile)
+* [Coinbase](https://wallet.coinbase.com)
 
 If you're using a laptop/computer, use either Chrome, Brave, or Firefox with the [Metamask](https://metamask.io/download.html) browser extension. Opera's crypto wallet should also work.
 

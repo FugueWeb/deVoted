@@ -66,6 +66,7 @@ export class VoteComponent implements OnInit {
       });
     this.web3Service.currentWalletState$.subscribe(state => {
       this.walletState = state;
+      console.log(this.walletState);
       this.balanceETH = this.web3Service.convertWeiToETH(this.walletState.balance);
       console.log(state);
       this.networkName = this.getNetworkName(this.walletState.network);
