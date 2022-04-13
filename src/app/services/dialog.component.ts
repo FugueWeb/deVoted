@@ -16,7 +16,8 @@ export interface DialogData {
     <p><em>{{data.call}}</em></p>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button (click)="onNoClick()">Ok</button>
+    <button mat-raised-button (click)="onNoClick()"
+    class="mat-focus-indicator mat-raised-button mat-button-base">Ok</button>
   </div>
   `
 })

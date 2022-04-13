@@ -1,9 +1,10 @@
 # Change Log
 
-## 20220409
+## 20220410
 
-* Updated to Angular 13 `ng update --all`
-* Updated Blocknative
+* Version 2.0
+* Updated to Angular 13; Blocknative
+* Polyfills added to support ng update
 
 ## 20210327
 

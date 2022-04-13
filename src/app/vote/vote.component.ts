@@ -253,7 +253,7 @@ export class VoteComponent implements OnInit {
     }
   }
 
-  async getElectionInfo(eID: number) {
+  async getElectionInfo(eID) {
     console.log('Checking info for Election ' + eID);
 
     try {
@@ -272,7 +272,7 @@ export class VoteComponent implements OnInit {
     }
   }
 
-  async getVoterInfo(eID: number, vAddr: string) {
+  async getVoterInfo(eID, vAddr: string) {
     console.log('Checking voter info: Election ' + eID + ' with address ' + vAddr);
 
     try {
@@ -358,7 +358,7 @@ export class VoteComponent implements OnInit {
       }
   }
 
-  async getElectionWinner(eID: number) {
+  async getElectionWinner(eID) {
     console.log('Getting winner for election ' + eID);
 
     try {

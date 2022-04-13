@@ -99,171 +99,77 @@ export class Web3Service {
     }
   }
 
+  private notifyBlockNative(self, hash) {
+    let notifyInstance = Notify({
+        dappId: environment.BLOCK_NATIVE_KEY,
+        networkId: self.networkID
+    });
+    const { emitter } = notifyInstance.hash(hash);
+    emitter.on('all', function(tx) {
+        self.tx$.next(tx);
+        setTimeout(() => {
+            self.currentWalletState$.next(self.onboard.getState())}, 
+            8000
+        );
+        return {
+            onclick: () => window.open(`${networkIdToUrl[self.initializationOptions.networkId]}/${tx.hash}`)
+        }          
+    });
+  }
+
   public newVoterRequest(instance: any, addr) {
       let self = this;
       instance.requestAccess.sendTransaction( {from:addr}).on('transactionHash', function(hash){  
-        let notifyInstance = Notify({
-            dappId: environment.BLOCK_NATIVE_KEY,
-            networkId: self.networkID
-        });
-        const { emitter } = notifyInstance.hash(hash);
-        emitter.on('all', function(tx) {
-            self.tx$.next(tx);
-            setTimeout(() => {
-                self.currentWalletState$.next(self.onboard.getState())}, 
-                8000
-            );
-            return {
-                onclick: () => window.open(`${networkIdToUrl[self.initializationOptions.networkId]}/${tx.hash}`)
-            }          
-        });
+        self.notifyBlockNative(self, hash);
       })
   }
 
   public newElection(instance: any, prop1, prop2, deadline, from) {
       let self = this;
       instance.newElection.sendTransaction(prop1, prop2, deadline, {from:from}).on('transactionHash', function(hash){  
-        let notifyInstance = Notify({
-            dappId: environment.BLOCK_NATIVE_KEY,
-            networkId: self.networkID
-        });
-        const { emitter } = notifyInstance.hash(hash);
-        emitter.on('all', function(tx) {
-            self.tx$.next(tx);
-            setTimeout(() => {
-                self.currentWalletState$.next(self.onboard.getState())}, 
-                8000
-            );
-            return {
-                onclick: () => window.open(`${networkIdToUrl[self.initializationOptions.networkId]}/${tx.hash}`)
-            }          
-        });
+        self.notifyBlockNative(self, hash);
       })
   }
 
   public registerToVote(instance: any, addr, from) {
       let self = this;
       instance.registerToVote.sendTransaction(addr, {from:from}).on('transactionHash', function(hash){  
-        let notifyInstance = Notify({
-            dappId: environment.BLOCK_NATIVE_KEY,
-            networkId: self.networkID
-        });
-        const { emitter } = notifyInstance.hash(hash);
-        emitter.on('all', function(tx) {
-            self.tx$.next(tx);
-            setTimeout(() => {
-                self.currentWalletState$.next(self.onboard.getState())}, 
-                8000
-            );
-            return {
-                onclick: () => window.open(`${networkIdToUrl[self.initializationOptions.networkId]}/${tx.hash}`)
-            }          
-        });
+        self.notifyBlockNative(self, hash);
       })
   }
 
   public registerForElection(instance: any, eid, from) {
       let self = this;
       instance.registerForElection.sendTransaction(eid, {from:from}).on('transactionHash', function(hash){  
-        let notifyInstance = Notify({
-            dappId: environment.BLOCK_NATIVE_KEY,
-            networkId: self.networkID
-        });
-        const { emitter } = notifyInstance.hash(hash);
-        emitter.on('all', function(tx) {
-            self.tx$.next(tx);
-            setTimeout(() => {
-                self.currentWalletState$.next(self.onboard.getState())}, 
-                8000
-            );
-            return {
-                onclick: () => window.open(`${networkIdToUrl[self.initializationOptions.networkId]}/${tx.hash}`)
-            }          
-        });
+        self.notifyBlockNative(self, hash);
       })
   }
 
   public vote(instance: any, prop, eid, from) {
       let self = this;
       instance.vote.sendTransaction(prop, eid, {from:from}).on('transactionHash', function(hash){  
-        let notifyInstance = Notify({
-            dappId: environment.BLOCK_NATIVE_KEY,
-            networkId: self.networkID
-        });
-        const { emitter } = notifyInstance.hash(hash);
-        emitter.on('all', function(tx) {
-            self.tx$.next(tx);
-            setTimeout(() => {
-                self.currentWalletState$.next(self.onboard.getState())}, 
-                8000
-            );
-            return {
-                onclick: () => window.open(`${networkIdToUrl[self.initializationOptions.networkId]}/${tx.hash}`)
-            }          
-        });
+        self.notifyBlockNative(self, hash);
       })
   }
 
   public delegate(instance: any, addr, eid, from) {
       let self = this;
       instance.delegateVote.sendTransaction(addr, eid, {from:from}).on('transactionHash', function(hash){  
-        let notifyInstance = Notify({
-            dappId: environment.BLOCK_NATIVE_KEY,
-            networkId: self.networkID
-        });
-        const { emitter } = notifyInstance.hash(hash);
-        emitter.on('all', function(tx) {
-            self.tx$.next(tx);
-            setTimeout(() => {
-                self.currentWalletState$.next(self.onboard.getState())}, 
-                8000
-            );
-            return {
-                onclick: () => window.open(`${networkIdToUrl[self.initializationOptions.networkId]}/${tx.hash}`)
-            }          
-        });
+        self.notifyBlockNative(self, hash);
       })
   }
 
   public changeVote(instance: any, prop, eid, from) {
       let self = this;
       instance.changeVote.sendTransaction(prop, eid, {from:from}).on('transactionHash', function(hash){  
-        let notifyInstance = Notify({
-            dappId: environment.BLOCK_NATIVE_KEY,
-            networkId: self.networkID
-        });
-        const { emitter } = notifyInstance.hash(hash);
-        emitter.on('all', function(tx) {
-            self.tx$.next(tx);
-            setTimeout(() => {
-                self.currentWalletState$.next(self.onboard.getState())}, 
-                8000
-            );
-            return {
-                onclick: () => window.open(`${networkIdToUrl[self.initializationOptions.networkId]}/${tx.hash}`)
-            }          
-        });
+        self.notifyBlockNative(self, hash);
       })
   }
 
   public revokeVoter(instance: any, addr, from) {
       let self = this;
       instance.revokeVoter.sendTransaction(addr, {from:from}).on('transactionHash', function(hash){  
-        let notifyInstance = Notify({
-            dappId: environment.BLOCK_NATIVE_KEY,
-            networkId: self.networkID
-        });
-        const { emitter } = notifyInstance.hash(hash);
-        emitter.on('all', function(tx) {
-            self.tx$.next(tx);
-            setTimeout(() => {
-                self.currentWalletState$.next(self.onboard.getState())}, 
-                8000
-            );
-            return {
-                onclick: () => window.open(`${networkIdToUrl[self.initializationOptions.networkId]}/${tx.hash}`)
-            }          
-        });
+        self.notifyBlockNative(self, hash);
       })
   }
   public getWeb3(): any {
